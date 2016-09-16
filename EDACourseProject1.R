@@ -14,6 +14,8 @@ data <- read.table("household_power_consumption.txt", sep=";", header=TRUE)
 data$Date <- as.Date(data$Date, "%d/%m/%Y")
 mydata <- data[data$Date == "2007-2-1" | data$Date == "2007-2-2", ]
 
+# Test these changes show up on Github
+
 
 
 
