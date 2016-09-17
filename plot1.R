@@ -13,6 +13,8 @@ myData <- read.table("household_power_consumption.txt", sep=";", header=TRUE)
 myData$Date <- as.Date(myData$Date, "%d/%m/%Y")
 myData <- myData[myData$Date == "2007-2-1" | myData$Date == "2007-2-2", ]
 myData$Global_active_power <- as.numeric(myData$Global_active_power)
+
+# Specific Plot
 yticks <- seq(0, 1200, 200)
 hist(myData$Global_active_power/500, col = "red", xlab = "Global Active Power (kilowatts)", 
      main = "Global Active Power", axes = FALSE)
