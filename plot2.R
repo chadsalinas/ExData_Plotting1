@@ -17,7 +17,7 @@ myData$Global_active_power <- as.numeric(myData$Global_active_power)
 DateTime <- as.POSIXct(paste(myData$Date, myData$Time), format="%Y-%m-%d %H:%M:%S")
 myData <- cbind(DateTime, myData)
 par(mar=c(2, 4, 2, 0.5))
-plot(myData$DateTime, myData$Global_active_power/500, pch = "|", cex=.5,
+plot(myData$DateTime, myData$Global_active_power/500, pch = "|",
      xlab = "", ylab = "Global Active Power (kilowatts)")
 
 
