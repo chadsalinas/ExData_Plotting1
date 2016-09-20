@@ -1,25 +1,28 @@
 #  Chad Salinas
-#  9/16/2016
+#  9/19/2016
 #  Exploratory Data Analysis Project1
 #  The input for the script is ;-delimited text data
 #  The output is 1 plot
 #  There are no parameters to the script
 
 setwd("~/Documents/JohnsHopkinsData/ExploratoryDataAnalysis/Project1")
-
 library(data.table)
+myData <- read.table("household_power_consumption.txt", stringsAsFactors = FALSE, sep = ";", header = TRUE)
 
-myData <- read.table("household_power_consumption.txt", sep=";", header=TRUE)
-myData$Date <- as.Date(myData$Date, "%d/%m/%Y")
-myData <- myData[myData$Date == "2007-2-1" | myData$Date == "2007-2-2", ]
-myData$Global_active_power <- as.numeric(myData$Global_active_power)
+# Get date and time as a comparable date/time in a single col
+myData <- subset(myData, Date == "2/2/2007" | Date == "1/2/2007")
+myData$Date = as.Date(myData$Date,"%d/%m/%Y")
+myData$Date = as.character(myData$Date)
+myData$dtString <- paste(myData$Date, myData$Time, sep = " ")
+myData$dt <- strptime(myData$dtString,"%Y-%m-%d %H:%M:%S")
+
+myData$Global_active_power = as.numeric(myData$Global_active_power)
 
 # Specific Plot
-yticks <- seq(0, 1200, 200)
-hist(myData$Global_active_power/500, col = "red", xlab = "Global Active Power (kilowatts)", 
-     main = "Global Active Power", axes = FALSE)
-axis(1)
-axis(2, at = yticks, las=2)
+hist(myData$Global_active_power, col = "Red", 
+     xlab = "Global Active Power (kilowatts)", 
+     main = "Global Active Power")
 
-
-
+# Cleanup
+dev.copy(png, file = "plot1.png", height = 480, width = 480)
+dev.off()
